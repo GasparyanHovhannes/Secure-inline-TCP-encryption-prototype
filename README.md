@@ -131,14 +131,4 @@ Tamper demo: `./scripts/run_dev1.sh --tamper` → Device2 logs
 ## Limitations (prototype)
 
 * IPv4/TCP only; IP fragments are dropped, never forwarded in clear.
-* Pre-shared secret (file) authenticates the handshake; use a strong random
-  value (`gen_psk.sh`). Signatures/certificates would be the next step.
-* **No automatic rekeying**: restart both devices for a new session.
-* Only IPs, ports and the sequence number are authenticated. An on-path
-  attacker could still inject payload-less segments (e.g. RST) or alter
-  unauthenticated header fields; payload injection/modification is detected.
 * Strictly one session per device pair; handshake attempts are served one at a time.
-* Python/NFQUEUE is for correctness, not line-rate throughput.
-* The 8-byte counter after the tag is a deliberate design choice (no header is
-  allowed, so the receiver needs the nonce input in the payload). See
-  `docs/CHANGES_vs_GUIDE.md`.
